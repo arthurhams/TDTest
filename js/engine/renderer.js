@@ -1,3 +1,6 @@
+// Rendering constants
+const TILE_SIZE = 64;
+
 export class Renderer {
     constructor(ctx) {
         this.ctx = ctx;
@@ -13,12 +16,12 @@ export class Renderer {
                 
                 // Draw tile background
                 ctx.fillStyle = this.getTileColor(tile);
-                ctx.fillRect(x * 64, y * 64, 64, 64);
+                ctx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 
                 // Draw grid
                 ctx.strokeStyle = 'rgba(0,0,0,0.1)';
                 ctx.lineWidth = 1;
-                ctx.strokeRect(x * 64, y * 64, 64, 64);
+                ctx.strokeRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
             }
         }
         

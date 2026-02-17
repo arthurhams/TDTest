@@ -11,6 +11,10 @@ import { GameOverScreen } from '../ui/game-over.js';
 import { LEVELS } from '../data/levels.js';
 import { TOWER_TYPES } from '../data/tower-types.js';
 
+// Game constants
+const TILE_SIZE = 64;
+const TILE_CENTER_OFFSET = 32;
+
 export class Game {
     constructor(canvas) {
         this.canvas = canvas;
@@ -283,8 +287,8 @@ export class Game {
         }
         
         // Check if clicking on buildable tile
-        const tileX = Math.floor(gameX / 64);
-        const tileY = Math.floor(gameY / 64);
+        const tileX = Math.floor(gameX / TILE_SIZE);
+        const tileY = Math.floor(gameY / TILE_SIZE);
         
         if (this.map.isBuildable(tileX, tileY) && this.towerPanel.selectedType) {
             const towerType = TOWER_TYPES[this.towerPanel.selectedType];
@@ -292,8 +296,8 @@ export class Game {
             if (this.gold >= towerType.cost) {
                 // Place tower at tile center (fixes placement issue)
                 const tower = new Tower(
-                    tileX * 64 + 32,
-                    tileY * 64 + 32,
+                    tileX * TILE_SIZE + TILE_CENTER_OFFSET,
+                    tileY * TILE_SIZE + TILE_CENTER_OFFSET,
                     this.towerPanel.selectedType,
                     towerType
                 );
@@ -326,8 +330,8 @@ export class Game {
             const index = this.towers.indexOf(this.selectedTower);
             if (index > -1) {
                 // Mark tile as buildable again
-                const tileX = Math.floor(this.selectedTower.x / 64);
-                const tileY = Math.floor(this.selectedTower.y / 64);
+                const tileX = Math.floor(this.selectedTower.x / TILE_SIZE);
+                const tileY = Math.floor(this.selectedTower.y / TILE_SIZE);
                 this.map.removeTower(tileX, tileY);
                 
                 this.towers.splice(index, 1);
