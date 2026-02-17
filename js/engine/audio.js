@@ -104,7 +104,8 @@ export class AudioManager {
             oscillator1.frequency.value = 220; // A3
             oscillator2.frequency.value = 330; // E4
             
-            gainNode.gain.setValueAtTime(this.musicVolume * 0.1, this.audioContext.currentTime);
+            const MUSIC_VOLUME_MULTIPLIER = 0.1; // Background music at 10% of SFX volume
+            gainNode.gain.setValueAtTime(this.musicVolume * MUSIC_VOLUME_MULTIPLIER, this.audioContext.currentTime);
             
             oscillator1.start();
             oscillator2.start();

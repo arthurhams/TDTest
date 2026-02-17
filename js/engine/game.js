@@ -116,8 +116,9 @@ export class Game {
     }
     
     update(deltaTime) {
-        // Clamp delta time to prevent huge jumps
-        deltaTime = Math.min(deltaTime, 0.1);
+        // Clamp delta time to prevent huge jumps (max 100ms prevents physics issues when tab loses focus)
+        const MAX_DELTA_TIME = 0.1;
+        deltaTime = Math.min(deltaTime, MAX_DELTA_TIME);
         
         // Handle wave spawning
         this.updateWaveSpawning(deltaTime);
