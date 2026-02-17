@@ -27,7 +27,7 @@ export class HUD {
         
         // Draw gold
         ctx.fillStyle = '#FFD700';
-        ctx.fillText(`⛃ ${gameState.gold}`, 150, 25);
+        ctx.fillText(`Gold: ${gameState.gold}`, 150, 25);
         
         // Draw wave counter
         ctx.fillStyle = '#FFFFFF';
@@ -57,10 +57,17 @@ export class HUD {
     }
     
     handleClick(mousePos) {
-        // Convert to game coordinates if needed
+        // Convert screen to game coordinates
+        const canvas = document.getElementById('gameCanvas');
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const gameX = mousePos.x * scaleX;
+        const gameY = mousePos.y * scaleY;
+        
         for (const btn of this.speedButtons) {
-            if (mousePos.x >= btn.x && mousePos.x <= btn.x + btn.width &&
-                mousePos.y >= btn.y && mousePos.y <= btn.y + btn.height) {
+            if (gameX >= btn.x && gameX <= btn.x + btn.width &&
+                gameY >= btn.y && gameY <= btn.y + btn.height) {
                 return { type: 'speed', value: btn.speed };
             }
         }
